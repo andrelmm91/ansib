@@ -1,11 +1,9 @@
 ---
 # YAML documents begin with the document separator ---
 
-# The minus in YAML this indicates a list item.  The playbook contains a list 
+# The minus in YAML this indicates a list item.  The playbook contains a list
 # of plays, with each play being a dictionary
--
-
-  # Hosts: where our play will run and options it will run with
+- # Hosts: where our play will run and options it will run with
   hosts: centos
   user: root
   gather_facts: False
@@ -20,7 +18,7 @@
       copy:
         content: "{{ motd }}"
         dest: /etc/motd
-      notify: MOTD changed
+      notify: MOTD changed # the same name is used in the handler
 
   # Handlers: the list of handlers that are executed as a notify key from a task
   handlers:
@@ -29,6 +27,4 @@
         msg: The MOTD was changed
 
   # Roles: list of roles to be imported into the play
-
 # Three dots indicate the end of a YAML document
-...

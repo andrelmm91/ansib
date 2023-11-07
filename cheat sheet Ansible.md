@@ -77,3 +77,36 @@ ansible ~.\*3 --list-hosts (any number any character and ending in 3)
 
 ansible all -m command -a 'id' -o
 ansible all -m ping -e 'ansible_port=xx' -o
+
+## modules
+
+<!-- file -->
+
+ansible TARGET -m setup | more
+ansible all -m file -a 'path=/tmp/test state=touch' (creating the file)
+ansible all -m file -a 'path=/tmp/test state=file mode=600' (changing the permission to 600)
+ls -altrh /tmp/test (listening for permission)
+
+<!-- copy -->
+
+ansible all -m fetch -a 'src=/tmp/test_module.txt dest=/tmp/'
+ansible all -m copy -a 'src=/tmp/x dest=/tmp/x' (copy to a dest)
+ansible all -m copy -a 'remote_src=yes src=/tmp/x dest=/tmp/y' (copy on the remote target using a remote source to a remote dest)
+
+<!-- command -->
+
+ansible all -a "hostname" -o
+ansible all -a 'touch DIR/FILE creates=DIR/FILE'
+ansible all -a 'rm DIR/FILE removes=DIR/FILE'
+
+ <!-- documentation -->
+
+ansible-doc MODULE
+
+## playbooks
+
+ansible-playbook FILE.YAML
+time ansible-playbook FILE.YAML (how much time it takes)
+
+ansible centos1 -m setup -a "gather_subset=network" | more
+ansible centos1 -m setup -a "filter=ansible_mem\*" | more
