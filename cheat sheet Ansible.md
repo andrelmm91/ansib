@@ -110,3 +110,21 @@ time ansible-playbook FILE.YAML (how much time it takes)
 
 ansible centos1 -m setup -a "gather_subset=network" | more
 ansible centos1 -m setup -a "filter=ansible_mem\*" | more
+
+ <!-- dynamic inventories -->
+
+ansible all -i inventory.py --list-host
+
+## vault
+
+ansible-vault encrypt_string --ask-vault-pass --name 'ansible_become' 'password'
+THEN copy to the group_vars
+
+OR encrypting a file
+ansible-vault encrypt FILE
+ansible-vault decrypt FILE
+
+ansible-vault rekey FILE (changing password)
+ansible-vault view FILE (to see the content)
+
+ansible-vault view --vault-password-file PASSWORD_FILE FILE (to see the content but using the password with an external file)
